@@ -1,8 +1,32 @@
-# ⚡ SAVITR — AI/ML-Based Nowcasting of Thunderstorm & Lightning
+<div align="center">
 
-<p align="center">
-  <b>AI/ML-powered multi-source weather nowcasting platform for rapidly evolving thunderstorms and lightning</b>
-</p>
+<img src="assets/banner.svg" alt="SAVITR banner" width="100%"/>
+
+<br/>
+
+**AI/ML-powered multi-source weather nowcasting platform for rapidly evolving thunderstorms and lightning**
+
+<br/>
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![PostGIS](https://img.shields.io/badge/PostgreSQL%20%2B%20PostGIS-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![Next.js](https://img.shields.io/badge/React%20%2F%20Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+![SIH](https://img.shields.io/badge/Smart%20India%20Hackathon-PS%2026072-orange?style=flat-square)
+![Theme](https://img.shields.io/badge/Theme-Disaster%20Management-red?style=flat-square)
+![Category](https://img.shields.io/badge/Category-Software-blue?style=flat-square)
+![Status](https://img.shields.io/badge/Prototype-40%25%2B-yellow?style=flat-square)
+
+</div>
+
+---
+
+## 📑 Contents
+
+[Smart India Hackathon](#-smart-india-hackathon) · [Overview](#%EF%B8%8F-overview) · [Problem](#-problem) · [Proposed Solution](#-proposed-solution) · [AI/ML Architecture](#-aiml-architecture) · [Data Cube](#%EF%B8%8F-unified-spatiotemporal-data-cube) · [Outputs](#-prediction--alert-outputs) · [System Architecture](#%EF%B8%8F-system-architecture) · [Tech Stack](#%EF%B8%8F-technology-stack) · [Operations](#-operational-workflow) · [Validation](#-validation-strategy) · [Challenges](#%EF%B8%8F-key-challenges) · [Impact](#-impact) · [Innovation](#-innovation--uniqueness) · [Status](#-current-prototype-status) · [Roadmap](#-future-roadmap) · [References](#-research-foundation)
 
 ---
 
@@ -23,7 +47,7 @@
 
 Thunderstorms and lightning can develop, intensify, and move rapidly, requiring frequently updated and localized forecasts.
 
-However, atmospheric observations come from multiple sources — including **radars, satellites, lightning networks, Numerical Weather Prediction (NWP) models, and surface observations** — and these sources differ in:
+However, atmospheric observations come from multiple sources, including **radars, satellites, lightning networks, Numerical Weather Prediction (NWP) models, and surface observations**, and these sources differ in:
 
 - Spatial resolution
 - Temporal update frequency
@@ -66,18 +90,16 @@ SAVITR aims to convert these fragmented observations into a **single unified dec
 
 SAVITR follows a unified pipeline:
 
-```text
-COLLECT
-   ↓
-CLEAN
-   ↓
-ALIGN
-   ↓
-FUSE
-   ↓
-PREDICT
-   ↓
-ALERT
+```mermaid
+flowchart LR
+    A["COLLECT"]:::s1 --> B["CLEAN"]:::s2 --> C["ALIGN"]:::s3 --> D["FUSE"]:::s4 --> E["PREDICT"]:::s5 --> F["ALERT"]:::s6
+
+    classDef s1 fill:#1e3a8a,stroke:#60a5fa,color:#fff
+    classDef s2 fill:#155e75,stroke:#22d3ee,color:#fff
+    classDef s3 fill:#065f46,stroke:#34d399,color:#fff
+    classDef s4 fill:#854d0e,stroke:#facc15,color:#fff
+    classDef s5 fill:#6b21a8,stroke:#c084fc,color:#fff
+    classDef s6 fill:#991b1b,stroke:#f87171,color:#fff
 ```
 
 The system combines multiple atmospheric data sources into a common spatiotemporal representation.
@@ -86,24 +108,17 @@ The system combines multiple atmospheric data sources into a common spatiotempor
 
 The platform integrates:
 
-```text
-Radar
-  +
-Satellite
-  +
-Lightning
-  +
-NWP Models
-  +
-Surface Observations
-        ↓
-Common Space-Time Grid
-        ↓
-Multimodal AI/ML Model
-        ↓
-Nowcast + Confidence
-        ↓
-Risk Maps + Alerts
+```mermaid
+flowchart TB
+    R["Radar"] & S["Satellite"] & L["Lightning"] & N["NWP Models"] & O["Surface Observations"] --> G["Common Space-Time Grid"]
+    G --> M["Multimodal AI/ML Model"]
+    M --> NC["Nowcast + Confidence"]
+    NC --> RA["Risk Maps + Alerts"]
+
+    style G fill:#065f46,stroke:#34d399,color:#fff
+    style M fill:#6b21a8,stroke:#c084fc,color:#fff
+    style NC fill:#1e3a8a,stroke:#60a5fa,color:#fff
+    style RA fill:#991b1b,stroke:#f87171,color:#fff
 ```
 
 The prototype currently targets short-term horizons:
@@ -116,42 +131,12 @@ The prototype currently targets short-term horizons:
 
 ## Input Data
 
-### 📡 Radar
-
-Relevant radar features include:
-
-- Reflectivity
-- Echo structure
-- Intensity trends
-- Storm motion
-
-### 🛰️ Satellite
-
-Satellite-derived features include:
-
-- Cloud-top temperature
-- Cooling rate
-- Cloud texture
-- Cloud movement
-
-### ⚡ Lightning
-
-Lightning observations include:
-
-- Strike density
-- Spatial clustering
-- Temporal growth
-
-### 🌦️ NWP & Surface Data
-
-Atmospheric variables include:
-
-- Atmospheric instability
-- Humidity
-- Pressure
-- Wind
-- Temperature
-- Rainfall
+| Source | Features |
+|---|---|
+| 📡 **Radar** | Reflectivity · Echo structure · Intensity trends · Storm motion |
+| 🛰️ **Satellite** | Cloud-top temperature · Cooling rate · Cloud texture · Cloud movement |
+| ⚡ **Lightning** | Strike density · Spatial clustering · Temporal growth |
+| 🌦️ **NWP & Surface** | Atmospheric instability · Humidity · Pressure · Wind · Temperature · Rainfall |
 
 ---
 
@@ -159,17 +144,26 @@ Atmospheric variables include:
 
 The system uses a spatiotemporal deep-learning architecture.
 
+```mermaid
+flowchart LR
+    IN["Radar / Satellite /<br/>Atmospheric Grids"] --> ENC["1. CNN Encoder"]
+    ENC --> SF["Spatial Features"]
+    SF --> LSTM["2. ConvLSTM"]
+    LSTM --> H1["🌩️ Thunderstorm<br/>Probability"]
+    LSTM --> H2["⚡ Lightning<br/>Probability"]
+    LSTM --> H3["🗺️ Storm Mask"]
+    H1 & H2 & H3 --> CONF["4. Confidence Module"]
+    CONF --> ALERT["5. Alert Engine"]
+
+    style ENC fill:#1e3a8a,stroke:#60a5fa,color:#fff
+    style LSTM fill:#6b21a8,stroke:#c084fc,color:#fff
+    style CONF fill:#854d0e,stroke:#facc15,color:#fff
+    style ALERT fill:#991b1b,stroke:#f87171,color:#fff
+```
+
 ### 1. CNN Encoder
 
 Extracts spatial atmospheric features from each observation timestep.
-
-```text
-Radar / Satellite / Atmospheric Grids
-                ↓
-           CNN Encoder
-                ↓
-       Spatial Features
-```
 
 ### 2. ConvLSTM
 
@@ -184,16 +178,7 @@ ConvLSTM is used as an established baseline for spatiotemporal weather nowcastin
 
 ### 3. Multitask Prediction Heads
 
-The model generates multiple outputs:
-
-```text
-             ConvLSTM
-                ↓
-       ┌────────┼────────┐
-       ↓        ↓        ↓
-Thunderstorm  Lightning  Storm
-Probability  Probability  Mask
-```
+The model generates multiple outputs: Thunderstorm Probability, Lightning Probability and Storm Mask.
 
 ### 4. Confidence Module
 
@@ -213,22 +198,18 @@ High-risk grid cells can trigger configurable alerts.
 
 Instead of treating weather layers independently, SAVITR creates a **unified spatiotemporal representation**.
 
-```text
-Radar ───────┐
-             │
-Satellite ──┤
-             │
-Lightning ──┤
-             ├──→ Space-Time Alignment
-NWP ─────────┤             ↓
-             │       Data Fusion
-Surface ─────┘             ↓
-                     AI/ML Prediction
-                           ↓
-                ┌──────────┼──────────┐
-                ↓          ↓          ↓
-             Storm      Lightning   Movement
-            Probability   Risk       Forecast
+```mermaid
+flowchart TB
+    R["Radar"] & S["Satellite"] & L["Lightning"] & N["NWP"] & O["Surface"] --> A["Space-Time Alignment"]
+    A --> F["Data Fusion"]
+    F --> P["AI/ML Prediction"]
+    P --> P1["Storm Probability"]
+    P --> P2["Lightning Risk"]
+    P --> P3["Movement Forecast"]
+
+    style A fill:#065f46,stroke:#34d399,color:#fff
+    style F fill:#854d0e,stroke:#facc15,color:#fff
+    style P fill:#6b21a8,stroke:#c084fc,color:#fff
 ```
 
 This allows the model to jointly learn relationships between different atmospheric observations.
@@ -239,80 +220,63 @@ This allows the model to jointly learn relationships between different atmospher
 
 SAVITR is designed to generate actionable outputs rather than only raw weather measurements.
 
-### Outputs include:
-
-- 🌩️ Thunderstorm probability maps
-- ⚡ Lightning probability maps
-- 🌀 Storm movement tracks
-- 🗺️ Future storm masks
-- 📊 Confidence layers
-- 🚨 High-risk regional alerts
+| Output | |
+|---|---|
+| 🌩️ | Thunderstorm probability maps |
+| ⚡ | Lightning probability maps |
+| 🌀 | Storm movement tracks |
+| 🗺️ | Future storm masks |
+| 📊 | Confidence layers |
+| 🚨 | High-risk regional alerts |
 
 ---
 
 # 🏗️ System Architecture
 
-```text
-                    ATMOSPHERIC DATA
-                           │
-       ┌───────────┬───────┼────────┬───────────┐
-       ↓           ↓       ↓        ↓           ↓
-     Radar     Satellite Lightning  NWP      Surface
-       │           │       │        │           │
-       └───────────┴───────┼────────┴───────────┘
-                           ↓
-                  Data Quality Control
-                           ↓
-                Spatial/Temporal Alignment
-                           ↓
-                  Multisource Data Fusion
-                           ↓
-                     CNN Encoder
-                           ↓
-                       ConvLSTM
-                           ↓
-                 Multitask Prediction
-                    ↙      ↓       ↘
-             Thunderstorm Lightning Storm
-             Probability  Probability Movement
-                    \      ↓       /
-                     Confidence
-                           ↓
-                     Alert Engine
-                           ↓
-               Dashboard / REST / WebSocket
+```mermaid
+flowchart TB
+    subgraph SRC["ATMOSPHERIC DATA"]
+        direction LR
+        R["Radar"]
+        S["Satellite"]
+        L["Lightning"]
+        N["NWP"]
+        O["Surface"]
+    end
+
+    SRC --> QC["Data Quality Control"]
+    QC --> AL["Spatial/Temporal Alignment"]
+    AL --> FU["Multisource Data Fusion"]
+    FU --> ENC["CNN Encoder"]
+    ENC --> CL["ConvLSTM"]
+    CL --> MT["Multitask Prediction"]
+    MT --> T1["Thunderstorm<br/>Probability"]
+    MT --> T2["Lightning<br/>Probability"]
+    MT --> T3["Storm<br/>Movement"]
+    T1 & T2 & T3 --> CF["Confidence"]
+    CF --> AE["Alert Engine"]
+    AE --> OUT["Dashboard / REST / WebSocket"]
+
+    style SRC fill:#0f172a,stroke:#60a5fa,color:#e2e8f0
+    style QC fill:#155e75,stroke:#22d3ee,color:#fff
+    style AL fill:#065f46,stroke:#34d399,color:#fff
+    style FU fill:#854d0e,stroke:#facc15,color:#fff
+    style ENC fill:#1e3a8a,stroke:#60a5fa,color:#fff
+    style CL fill:#6b21a8,stroke:#c084fc,color:#fff
+    style AE fill:#991b1b,stroke:#f87171,color:#fff
+    style OUT fill:#334155,stroke:#94a3b8,color:#fff
 ```
 
 ---
 
 # 🛠️ Technology Stack
 
-## AI / Data Processing
-
-- Python
-- PyTorch
-- NumPy
-- Xarray
-- GeoPandas
-
-## Backend
-
-- FastAPI
-- PostgreSQL
-- PostGIS
-- REST APIs
-- WebSocket APIs
-
-## Frontend
-
-- React / Next.js
-- Leaflet or MapLibre
-
-## Deployment
-
-- Docker
-- Automated data ingestion
-- GPU-enabled inference
+| Layer | Technologies |
+|---|---|
+| **AI / Data Processing** | Python · PyTorch · NumPy · Xarray · GeoPandas |
+| **Backend** | FastAPI · PostgreSQL · PostGIS · REST APIs · WebSocket APIs |
+| **Frontend** | React / Next.js · Leaflet or MapLibre |
+| **Deployment** | Docker · Automated data ingestion · GPU-enabled inference |
 
 ---
 
@@ -320,31 +284,28 @@ SAVITR is designed to generate actionable outputs rather than only raw weather m
 
 SAVITR is designed around an automated operational pipeline:
 
-```text
-Data Ingestion
-      ↓
-Freshness & Quality Checks
-      ↓
-Data Alignment
-      ↓
-Feature Preparation
-      ↓
-AI/ML Inference
-      ↓
-Confidence Calibration
-      ↓
-Risk Map Generation
-      ↓
-Dashboard / API
-      ↓
-Human-Verified Alerts
+```mermaid
+flowchart TB
+    A["Data Ingestion"] --> B["Freshness & Quality Checks"]
+    B --> C["Data Alignment"]
+    C --> D["Feature Preparation"]
+    D --> E["AI/ML Inference"]
+    E --> F["Confidence Calibration"]
+    F --> G["Risk Map Generation"]
+    G --> H["Dashboard / API"]
+    H --> I["Human-Verified Alerts"]
+
+    style A fill:#1e3a8a,stroke:#60a5fa,color:#fff
+    style E fill:#6b21a8,stroke:#c084fc,color:#fff
+    style I fill:#991b1b,stroke:#f87171,color:#fff
 ```
 
 Automated ingestion checks data freshness, quality and timestamps before inference.
 
 Scheduled inference generates updated prediction maps for each available observation cycle.
 
-The model acts as **decision support**, rather than replacing official warnings issued by meteorological authorities.
+> [!IMPORTANT]
+> The model acts as **decision support**, rather than replacing official warnings issued by meteorological authorities.
 
 ---
 
@@ -369,14 +330,14 @@ The system is intended to be validated progressively from offline historical dat
 
 The proposed development path is:
 
-```text
-Offline Model
-     ↓
-Live Data Pipeline
-     ↓
-Prediction Dashboard
-     ↓
-Alert System
+```mermaid
+flowchart LR
+    A["Offline Model"] --> B["Live Data Pipeline"] --> C["Prediction Dashboard"] --> D["Alert System"]
+
+    style A fill:#1e3a8a,stroke:#60a5fa,color:#fff
+    style B fill:#065f46,stroke:#34d399,color:#fff
+    style C fill:#854d0e,stroke:#facc15,color:#fff
+    style D fill:#991b1b,stroke:#f87171,color:#fff
 ```
 
 Initial development can use historical observations before integrating continuous real-time data feeds.
@@ -426,48 +387,13 @@ SAVITR incorporates:
 
 # 🌍 Impact
 
-## Disaster Management
-
-Localized risk maps can support:
-
-- Emergency preparedness
-- Resource positioning
-- Rapid response planning
-
-## Public Safety
-
-Timely alerts can help:
-
-- Outdoor workers
-- Communities
-- Event organizers
-- Field personnel
-
-move toward safer locations.
-
-## Aviation & Transport
-
-Storm tracking can support:
-
-- Safer routing
-- Ground-operation planning
-- Short-term operational decisions
-
-## Agriculture
-
-Near-term warnings can help protect:
-
-- Field workers
-- Livestock
-- Weather-sensitive agricultural activities
-
-## Utilities & Infrastructure
-
-Localized weather intelligence can support:
-
-- Maintenance planning
-- Infrastructure protection
-- Operational planning
+| Sector | Support provided |
+|---|---|
+| 🚑 **Disaster Management**<br/>Localized risk maps can support | Emergency preparedness · Resource positioning · Rapid response planning |
+| 🧑‍🤝‍🧑 **Public Safety**<br/>Timely alerts can help | Outdoor workers · Communities · Event organizers · Field personnel *move toward safer locations* |
+| ✈️ **Aviation & Transport**<br/>Storm tracking can support | Safer routing · Ground-operation planning · Short-term operational decisions |
+| 🌾 **Agriculture**<br/>Near-term warnings can help protect | Field workers · Livestock · Weather-sensitive agricultural activities |
+| 🔌 **Utilities & Infrastructure**<br/>Localized weather intelligence can support | Maintenance planning · Infrastructure protection · Operational planning |
 
 ---
 
@@ -488,39 +414,13 @@ SAVITR can:
 
 # 🚀 Innovation & Uniqueness
 
-### 1. Unified Spatiotemporal Data Cube
-
-Instead of independently viewing radar, satellite and lightning layers, SAVITR creates a common representation for joint AI processing.
-
-### 2. Joint Multi-Hazard Prediction
-
-The system simultaneously predicts:
-
-- Thunderstorm probability
-- Lightning probability
-- Storm movement
-
-### 3. Confidence-Aware Nowcasting
-
-Predictions are accompanied by calibrated probabilities and uncertainty information.
-
-### 4. Adaptive Data Fusion
-
-The architecture can continue operating when some observations are:
-
-- Missing
-- Delayed
-- Inconsistent
-
-### 5. Modular Architecture
-
-The system can be extended with:
-
-- New sensors
-- New geographical regions
-- New prediction horizons
-- New AI models
-- Additional alert channels
+| # | Innovation | Description |
+|:-:|---|---|
+| 1 | **Unified Spatiotemporal Data Cube** | Instead of independently viewing radar, satellite and lightning layers, SAVITR creates a common representation for joint AI processing. |
+| 2 | **Joint Multi-Hazard Prediction** | The system simultaneously predicts thunderstorm probability, lightning probability and storm movement. |
+| 3 | **Confidence-Aware Nowcasting** | Predictions are accompanied by calibrated probabilities and uncertainty information. |
+| 4 | **Adaptive Data Fusion** | The architecture can continue operating when some observations are missing, delayed or inconsistent. |
+| 5 | **Modular Architecture** | The system can be extended with new sensors, new geographical regions, new prediction horizons, new AI models and additional alert channels. |
 
 ---
 
@@ -559,7 +459,10 @@ The project is supported by research in:
 
 **Radar Nowcasting • Deep Learning • Thunderstorms • Lightning • Multimodal AI**
 
-### Key References
+<details>
+<summary><b>Key References (15)</b></summary>
+
+<br/>
 
 1. Shi, X., Chen, Z., Wang, H., Yeung, D.-Y., Wong, W.-K. & Woo, W.-C. (2015). *Convolutional LSTM Network: A Machine Learning Approach for Precipitation Nowcasting.* NeurIPS, 802–810.
 
@@ -591,14 +494,16 @@ The project is supported by research in:
 
 15. Harnist, B., Pulkkinen, S. & Mäkinen, T. (2024). *DEUCE v1.0: A Neural Network for Probabilistic Precipitation Nowcasting with Aleatoric and Epistemic Uncertainties.* Geoscientific Model Development, 17, 3839–3866.
 
+</details>
+
 ---
 
 # 🏆 Smart India Hackathon
 
-**Problem Statement:** 26072  
-**Theme:** Disaster Management  
-**Category:** Software  
-**Team:** SAVITR  
+**Problem Statement:** 26072
+**Theme:** Disaster Management
+**Category:** Software
+**Team:** SAVITR
 **Team ID:** 137242
 
 ---
